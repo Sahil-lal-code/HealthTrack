@@ -1,4 +1,3 @@
-    // Developer modal functionality
     const developerBtn = document.querySelector('.developer-btn');
     const developerModal = document.querySelector('.developer-modal');
     const closeModalBtn = document.querySelector('.close-modal');
@@ -16,7 +15,7 @@
             developerModal.classList.remove('active');
         }
     });
-    // Sticky Developer Button
+    
 let lastScrollPosition = 0;
 
 const developerSection = document.querySelector('.developer-section');
@@ -25,10 +24,8 @@ window.addEventListener('scroll', function() {
     const currentScrollPosition = window.pageYOffset;
     
     if (currentScrollPosition > lastScrollPosition) {
-        // Scrolling down - hide button
         developerSection.style.top = '-70px';
     } else {
-        // Scrolling up - show button
         developerSection.style.top = '20px';
     }
     
@@ -60,8 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
         { name: 'Overweight', min: 25, max: 30, color: 'overweight-text' },
         { name: 'Obese', min: 30, max: 100, color: 'obese-text' }
     ];
-    
-    // Recommendations data
     const recommendations = {
         underweight: {
             diet: [
@@ -262,40 +257,35 @@ document.addEventListener('DOMContentLoaded', function() {
     
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Remove active class from all buttons and contents
+            
             tabBtns.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
             
-            // Add active class to clicked button and corresponding content
+            
             btn.classList.add('active');
             const tabName = btn.getAttribute('data-tab');
             document.querySelector(`.tab-content[data-tab="${tabName}"]`).classList.add('active');
         });
     });
     
-    // Functions
+    
     function calculateBMI() {
         const height = parseFloat(heightInput.value);
         const weight = parseFloat(weightInput.value);
         
-        // Validate inputs
         if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
             alert('Please enter valid height and weight values');
             return;
         }
         
-        // Convert units to metric if necessary
         const heightInMeters = heightUnit.value === 'cm' ? height / 100 : height * 0.0254;
         const weightInKg = weightUnit.value === 'kg' ? weight : weight * 0.453592;
         
-        // Calculate BMI
         const bmi = weightInKg / (heightInMeters * heightInMeters);
         const roundedBMI = Math.round(bmi * 10) / 10;
         
-        // Display result
         bmiResult.textContent = roundedBMI;
         
-        // Determine category
         let category;
         for (const cat of bmiCategories) {
             if (roundedBMI >= cat.min && roundedBMI < cat.max) {
@@ -304,19 +294,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Update category display
         bmiCategory.textContent = category.name;
         bmiCategory.className = category.color;
         
-        // Position marker on BMI scale
         const markerPosition = Math.min(Math.max(roundedBMI, 15), 40); // Clamp between 15 and 40
         const percentage = ((markerPosition - 15) / (40 - 15)) * 100; // Scale to 0-100%
         categoryMarker.style.left = `${percentage}%`;
         
-        // Show results
         resultContainer.style.display = 'block';
         
-        // Scroll to results
+        
         resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         
         // Generate recommendations based on category
@@ -326,27 +313,26 @@ document.addEventListener('DOMContentLoaded', function() {
     function generateRecommendations(category) {
         const categoryData = recommendations[category];
         
-        // Clear previous recommendations
         dietContent.innerHTML = '';
         exerciseContent.innerHTML = '';
         tipsContent.innerHTML = '';
         
-        // Add diet recommendations
+       
         categoryData.diet.forEach(item => {
             dietContent.appendChild(createRecommendationItem(item.title, item.description, 'utensils'));
         });
         
-        // Add exercise recommendations
+       
         categoryData.exercise.forEach(item => {
             exerciseContent.appendChild(createRecommendationItem(item.title, item.description, 'dumbbell'));
         });
         
-        // Add tips
+        
         categoryData.tips.forEach(item => {
             tipsContent.appendChild(createRecommendationItem(item.title, item.description, 'lightbulb'));
         });
         
-        // Show recommendations card if hidden
+        
         recommendationsCard.style.display = 'block';
     }
     
@@ -372,7 +358,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return item;
     }
     
-    // Animation on scroll
     const animateOnScroll = function() {
         const elements = document.querySelectorAll('.calculator-card, .recommendations-card, .info-card');
         
@@ -387,7 +372,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
     
-    // Set initial state for animation
     document.querySelectorAll('.calculator-card, .recommendations-card, .info-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
@@ -395,5 +379,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Run once on load
+    animateOnScroll(); 
 });
