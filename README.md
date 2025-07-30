@@ -1,4 +1,5 @@
-HealthTrack: Your personal health companion
+#HealthTrack: Your personal health companion
+
 "Because health isn't just numbers—it's about feeling your best!"
 
 👉 Live App: yourhealthtrackerbmicalculator.netlify.app
